@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# VS Code
+.vscode/
+tempCodeRunnerFile*
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Tests
+test*
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+venv.bak/
+.env.bak/
