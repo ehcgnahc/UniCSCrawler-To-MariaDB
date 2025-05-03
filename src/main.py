@@ -5,7 +5,7 @@ from .config import headers
 from .target import sites
 import logging
 import requests
-import schedule
+# import schedule
 
 logs_dir = 'logs'
 logger = logging.getLogger('main')
