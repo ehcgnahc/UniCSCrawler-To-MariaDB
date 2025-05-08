@@ -1,8 +1,8 @@
-import requests
+from ._utils.normalize_text import normalize_text
 from bs4 import BeautifulSoup
-from .normalize_text import normalize_text
-import logging
 from urllib import parse
+import logging
+import requests
 
 logger = logging.getLogger('main')
 

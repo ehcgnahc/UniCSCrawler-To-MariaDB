@@ -1,5 +1,5 @@
 from .database_controller import connect_to_maria_db, check_connection, close_connection, save_events_to_db
-from .setup_logging import setup_logging
+from ._utils.setup_logging import setup_logging
 from .crawler import get_events
 from .config import headers
 from .target import sites
