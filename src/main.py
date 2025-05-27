@@ -3,12 +3,15 @@ from ._utils.setup_logging import setup_logging
 from .crawler import get_events
 from .config import headers
 from .target import sites
+from .n8n import title_filter
 import logging
 import requests
 # import schedule
 
 logs_dir = 'logs'
 logger = logging.getLogger('main')
+n8n_webhook_url = "http://localhost:5678/webhook/TitleFilter"
+# n8n_webhook_url = "http://localhost:5678/webhook-test/TitleFilter"
 
 def run():
     connection = None
@@ -22,7 +25,8 @@ def run():
                     try:
                         events = get_events(site, headers)
                         logger.info(f"從 {site['school']} 獲取到 {len(events)} 筆資料")
-                        save_events_to_db(connection, events)
+                        filtered_events = title_filter(n8n_webhook_url, events)
+                        save_events_to_db(connection, filtered_events)
                     except (requests.exceptions.Timeout, requests.exceptions.ConnectionError, requests.exceptions.HTTPError) as e:
                         logger.warning(f"請求 {site['school']} 時發生網路錯誤 ({type(e).__name__})，跳過此網站")
                         continue
