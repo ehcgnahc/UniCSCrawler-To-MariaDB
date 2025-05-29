@@ -18,7 +18,7 @@ def get_events(site, headers):
             title = event.get("title", "").strip() or event.text.strip()
             title_simplified = normalize_text(title)
             link = parse.urljoin(site["url"], event.get("href", ""))
-            events.append((site["school"], title, title_simplified, link))
+            events.append([site["school"], title, title_simplified, link])
     except requests.exceptions.Timeout as e:
         logger.error(f"請求 {site['school']} 超時: {e}")
         return []

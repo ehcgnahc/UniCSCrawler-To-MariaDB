@@ -70,8 +70,8 @@ def save_events_to_db(connection, events):
     try:
         cursor = connection.cursor()
         insert_query = """
-            INSERT INTO events (school, title, title_simplified, link)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO test (School, Title, Title_Simplified, Link, Location, Info, Type)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
         
         for event in events:
