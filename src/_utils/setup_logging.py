@@ -10,7 +10,7 @@ def setup_logging(logs_dir):
     
     log_filename = f"{current_date}_{current_time}.log"
     
-    log_config_path = os.path.join(os.path.dirname(__file__), '..\..', 'logging.ini')
+    log_config_path = os.path.join(os.path.dirname(__file__), '../..', 'logging.ini')
     
     os.makedirs(logs_dir, exist_ok=True)
     os.makedirs(current_date_dir_path, exist_ok=True)

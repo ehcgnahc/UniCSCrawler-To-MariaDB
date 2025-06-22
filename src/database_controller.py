@@ -17,12 +17,17 @@ def connect_to_maria_db(roles):
     try:
         role_prefix = roles.upper()
         db_host = os.getenv(f"{role_prefix}_DB_HOST")
-        db_port = os.getenv(f"{role_prefix}_DB_PORT")
+        db_port_str = os.getenv(f"{role_prefix}_DB_PORT")
+        db_port = int(db_port_str) if db_port_str else 3306
         db_name = os.getenv(f"{role_prefix}_DB_NAME")
         db_user = os.getenv(f"{role_prefix}_DB_USER")
         db_password = os.getenv(f"{role_prefix}_DB_PASSWORD")
         
-        logger.info(f"嘗試連接到資料庫: {db_host}:{db_port}/{db_name} 作為用戶: {db_user}")
+        logger.info(f"DEBUG: 從環境變數獲取原始端口字串: '{db_port_str}'")
+        logger.info(f"DEBUG: 準備連接的端口值: '{db_port}', 類型: {type(db_port)}")
+        logger.info(f"DEBUG: 準備連接的主機值: '{db_host}', 類型: {type(db_host)}")
+        
+        logger.info(f"嘗試連接到資料庫: {db_host}:{db_port}/{db_name} 作為用戶: {db_user} 密碼:{db_password}")
         
         connection = mysql.connector.connect(
             host=db_host,
@@ -45,19 +50,19 @@ def check_connection(connection):
         logger.warning("檢查連接失敗：連接不存在或已斷開")
         return False
     try:
-        db_Info = connection.server_info
-        logger.debug(f"資料庫版本: {db_Info}") # Use f-string
+        # db_Info = connection.server_info
+        # logger.info(f"資料庫版本: {db_Info}")
         cursor = connection.cursor()
         cursor.execute("SELECT database();")
         record = cursor.fetchone()
         cursor.close()
-        logger.info(f"你連接到的資料庫: {record}") # Use f-string
+        logger.info(f"你連接到的資料庫: {record}")
         return True
     except Error as e:
         logger.error(f"檢查連接時發生資料庫錯誤: {e}")
         return False
     except Exception as e:
-        # print(f"檢查連接時發生未預期錯誤: {e}") # Remove this print
+        # print(f"檢查連接時發生未預期錯誤: {e}")
         logger.exception(f"檢查連接時發生未預期錯誤: {e}")
         return False
 
@@ -70,7 +75,7 @@ def save_events_to_db(connection, events):
     try:
         cursor = connection.cursor()
         insert_query = """
-            INSERT INTO test (School, Title, Title_Simplified, Link, Location, Info, Type)
+            INSERT INTO events (School, Title, Title_Simplified, Link, Location, Info, Type)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
         

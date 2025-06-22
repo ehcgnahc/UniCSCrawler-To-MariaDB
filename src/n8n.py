@@ -10,7 +10,7 @@ dotenv_path = find_dotenv()
 if dotenv_path:
     load_dotenv(dotenv_path)
 else:
-    logger.info("找不到 .env 檔案，請確保它存在於專案根目錄")
+    logger.info("找不到 .env 檔案，請確保它存在專案根目錄")
 
 def title_filter(n8n_webhook_url, events):
     if not events:
@@ -50,6 +50,10 @@ def title_filter(n8n_webhook_url, events):
                 event.append(n8n_response.get('event_type'))
                 filtered_events.append(event)
                 logger.info(f"Event '{event[2]}' kept by n8n")
+            elif n8n_response.get('event_type') == 'black_list':
+                logger.info(f"Event '{event[2]}' black listed by n8n")
+            elif n8n_response.get('event_type') == 'same':
+                logger.info(f"Event '{event[2]}' is dupelicate")
             else:
                 logger.info(f"Event '{event[2]}' filtered out by n8n")
             

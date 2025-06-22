@@ -1,5 +1,6 @@
-requests
-beautifulsoup4
-emoji
-python-dotenv
-mysql-connector-python
+requests==2.32.3
+beautifulsoup4==4.12.3
+emoji==2.12.1
+python-dotenv==1.0.1
+mysql-connector-python==9.0.0
+schedule==1.2.2

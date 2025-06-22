@@ -1,0 +1,17 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.git
+.pytest_cache
+.coverage
+.venv
+logs/*
+!logs/.gitkeep
+.env.local
+.env.development
+tests/
+*.md
+.gitignore
+k8s/
+docker-compose.yml
